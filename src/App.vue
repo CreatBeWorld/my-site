@@ -3,13 +3,10 @@
 </template>
 
 <script>
-import Avatar from "./components/Avatar";
 export default {
   name: "App",
-  components: {
-    Avatar,
-  },
+  components: {},
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less" scoped></style>

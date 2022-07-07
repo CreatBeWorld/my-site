@@ -16,6 +16,7 @@ export default {
     },
     size: {
       type: Number,
+      default: 150, //头像的默认尺寸为150px
     },
   },
 };
