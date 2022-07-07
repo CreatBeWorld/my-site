@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
-    
-  </div>
+  <div id="app"></div>
 </template>
 
 <script>
+import Avatar from "./components/Avatar";
 export default {
-  name: 'App',
-}
+  name: "App",
+  components: {
+    Avatar,
+  },
+};
 </script>
 
-<style lang="less">
-
-</style>
+<style lang="less"></style>
