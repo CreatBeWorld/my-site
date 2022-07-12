@@ -65,7 +65,7 @@ export default {
         i {
           font-size: 24px;
         }
-        span{
+        span {
           margin-left: 3px;
         }
       }

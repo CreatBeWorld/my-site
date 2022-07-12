@@ -1,10 +1,16 @@
 <template>
   <ul class="menu-container">
-    <li v-for="item in menuItems" :key="item.link">
-      <a :href="item.link" :class="{ selected: isSelected(item) }">
+    <li v-for="item in menuItems" :key="item.name">
+      <!-- :to="{ name: item.name }"根据对应的路由名找到对应的路由path,并把path的值替换{} -->
+      <RouterLink
+        :to="{ name: item.name }"
+        :exact="item.exact"
+        active-class="selected"
+        exact-active-class=""
+      >
         <Icon :type="item.icon" />
-        <span>{{ item.name }}</span>
-      </a>
+        <span>{{ item.title }}</span>
+      </RouterLink>
     </li>
   </ul>
 </template>
@@ -20,44 +26,37 @@ export default {
     return {
       menuItems: [
         {
-          name: "首页",
-          link: "/",
+          title: "首页",
+          name: "Home",
           icon: "home",
+          exact: true,
         },
         {
-          name: "文章",
-          link: "/blog",
+          title: "文章",
+          name: "Blog",
           icon: "blog",
-          startsWith:true,//路径是否已link开头
+          exact: false, //当前路径和导航路径是否需要精确匹配才能添加类名.router-link-active
         },
         {
-          name: "关于我",
-          link: "/about",
+          title: "关于我",
+          name: "About",
           icon: "about",
+          exact: true,
         },
         {
-          name: "项目&效果",
-          link: "/project",
+          title: "项目&效果",
+          name: "Project",
           icon: "code",
+          exact: true,
         },
         {
-          name: "留言板",
-          link: "/message",
+          title: "留言板",
+          name: "Message",
           icon: "chat",
+          exact: true,
         },
       ],
     };
-  },
-  methods: {
-    isSelected(item) {
-      const link = item.link.toLowerCase()
-      const currentPath = location.pathname.toLowerCase();//当前的访问路径
-      if (item.startsWith) {
-        return currentPath.startsWith(link);
-      } else {
-        return link === currentPath;
-      }
-    },
   },
 };
 </script>
@@ -74,7 +73,7 @@ export default {
       color: #fff;
     }
     &.selected {
-      background-color: darken(@words,6%);
+      background-color: darken(@words, 6%);
       color: #fff;
     }
     span {

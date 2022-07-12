@@ -4,9 +4,7 @@
     <h1 class="title">xsj blog</h1>
     <Menu />
     <Contact />
-    <div class="record-no">
-        黑ICP备17001719号
-    </div>
+    <div class="record-no">黑ICP备17001719号</div>
   </div>
 </template>
 
@@ -20,24 +18,25 @@ export default {
     Avatar,
     Contact,
     Menu,
-  }
+  },
 };
 </script>
 
 <style scoped lang="less">
 @import "~@/styles/var.less";
 .site-aside-container {
+  width: 100%;
   height: 100%;
   padding: 20px 0;
   background-color: @dark;
   overflow: hidden auto;
-  .title{
+  .title {
     font-size: 1.2em;
     color: #fff;
     text-align: center;
     margin: 10px 0;
   }
-  .record-no{
+  .record-no {
     text-align: center;
     color: @gray;
     font-size: 12px;
@@ -47,6 +46,6 @@ export default {
   margin: 30px auto;
 }
 .avatar-container {
-  margin:0 auto;
+  margin: 0 auto;
 }
 </style>

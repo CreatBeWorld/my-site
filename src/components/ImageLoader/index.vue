@@ -45,7 +45,7 @@ export default {
       setTimeout(() => {
         //用箭头函数，不然this指向出问题
         this.show = false;
-        this.$emit('load')
+        this.$emit("load");
       }, this.duration);
     },
   },
@@ -60,10 +60,12 @@ export default {
   position: relative;
   overflow: hidden;
   img {
-   .self-fill();
+    .self-fill();
     object-fit: cover;
     &.placeholder {
-      filter: blur(20px); //模糊效果处理不好，可以在其上面加一层透明度为0的覆盖物，即把原图的透明度设置为0
+      filter: blur(
+        20px
+      ); //模糊效果处理不好，可以在其上面加一层透明度为0的覆盖物，即把原图的透明度设置为0
     }
   }
 }
