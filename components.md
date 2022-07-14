@@ -187,3 +187,10 @@
 | left    | 左边栏     |
 | right   | 右边栏     |
 
+# Loading
+
+加载图标
+
+![image-20220714202753945](C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20220714202753945.png)
+
+父元素需要设置为相对定位
