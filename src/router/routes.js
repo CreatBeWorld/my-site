@@ -3,6 +3,7 @@ import About from '@/views/About'
 import Blog from '@/views/Blog'
 import Message from '@/views/Message'
 import Project from '@/views/Project'
+import BlogDetail from "@/views/Blog/BlogDetail"
 //路由匹配规则
 export default [{
     path: '/',
@@ -20,6 +21,11 @@ export default [{
     name: 'Blog',
   },
   {
+    path: '/article/cate/:categoryId', //动态路由，其中变化的部分被称为params
+    component: Blog,
+    name: 'CategoryBlog',
+  },
+  {
     path: '/message',
     component: Message,
     name: 'Message',
@@ -28,5 +34,10 @@ export default [{
     path: '/project',
     component: Project,
     name: 'Project',
+  },
+  {
+    path: "/article/:id",
+    name: "BlogDetail",
+    component: BlogDetail
   }
 ]

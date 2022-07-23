@@ -1,5 +1,5 @@
 <template>
-  <div class="about-container">关于我</div>
+  <div class="about-container"></div>
 </template>
 
 <script>
@@ -8,4 +8,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="less"></style>
