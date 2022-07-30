@@ -1,14 +1,17 @@
 <template>
   <div class="site-aside-container">
-    <Avatar url="http://mdrs.yuanjin.tech/img/20201031141350.jpg" />
-    <h1 class="title">xsj blog</h1>
+    <template v-if="remoteData">
+      <Avatar :url="remoteData.avatar" />
+      <h1 class="title">{{ remoteData.siteTitle }}</h1>
+    </template>
     <Menu />
     <Contact />
-    <div class="record-no">黑ICP备17001719号</div>
+    <div class="record-no" v-if="remoteData">{{ remoteData.icp }}</div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Avatar from "@/components/Avatar";
 import Contact from "./Contact";
 import Menu from "./Menu";
@@ -19,6 +22,7 @@ export default {
     Contact,
     Menu,
   },
+  computed: mapState("setting", ["remoteData"]),
 };
 </script>
 

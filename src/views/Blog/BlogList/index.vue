@@ -44,6 +44,7 @@
         </div>
       </li>
     </ul>
+    <Empty v-if="remoteData.rows.length===0&&!isLoading"/>
     <Pager
       v-if="remoteData.total"
       :total="remoteData.total"
@@ -61,11 +62,13 @@ import { getBlogs } from "@/api/blog.js";
 import { formatDate } from "@/utils"; //注意导入的函数或变量不能直接在template中调用
 import Pager from "@/components/Pager";
 import mainScroll from "@/mixin/mainScroll";
+import Empty from "@/components/Empty";
 export default {
   name: "BlogList",
-  mixins: [fetchData({}), mainScroll("container")],
+  mixins: [fetchData({total:0,rows:[]}), mainScroll("container")],
   components: {
     Pager,
+    Empty
   },
   computed: {
     //路由数据

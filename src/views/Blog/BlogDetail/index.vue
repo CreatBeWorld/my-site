@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout v-if="remoteData">
     <div class="main-container" v-loading="isLoading" ref="container">
       <MainContent :blog="remoteData" v-if="remoteData" />
       <BlogComment v-if="!isLoading" />
@@ -20,9 +20,10 @@ import MainContent from "./MainContent";
 import BlogTOC from "./BlogTOC";
 import BlogComment from "./BlogComment";
 import mainScroll from "@/mixin/mainScroll";
+import { titleController } from "@/utils";
 export default {
   name: "BlogDetail",
-  mixins: [fetchData(null),mainScroll("container")],
+  mixins: [fetchData(null), mainScroll("container")],
   components: {
     Layout,
     MainContent,
@@ -46,7 +47,14 @@ export default {
   },
   methods: {
     async fetchData() {
-      return await getSingleBlog(this.id);
+      const res = await getSingleBlog(this.id);
+      if (!res) {
+        //文章不存在
+        this.$router.push("/404");
+        return;
+      }
+      titleController.setRouteTitle(res.title);
+      return res;
     },
   },
 };

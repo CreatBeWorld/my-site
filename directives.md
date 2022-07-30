@@ -2,7 +2,7 @@
 
 # loading
 
-![image-20220714202753945](C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20220714202753945.png)
+![image-20220714202753945](https://cdn.jsdelivr.net/gh/CreatBeWorld/images/202207291655379.png)
 
 该指令用于实现加载数据时，加载图标的创建与删除
 

@@ -1,46 +1,48 @@
-import Mock from "mockjs"
-import queryString from "query-string"
+import Mock from "mockjs";
+import queryString from "query-string";
 Mock.mock("/api/blogtype", "get", {
   code: 0,
   msg: "",
-  "data|10-20": [{
-    "id|+1": 1,
-    name: "分类@id",
-    "articleCount|5-300": 0,
-    order: "@id"
-  }]
-})
+  "data|10-20": [
+    {
+      "id|+1": 1,
+      name: "分类@id",
+      "articleCount|5-300": 0,
+      order: "@id",
+    },
+  ],
+});
 // 注意当get方法带参数时，需要使用正则表达式来匹配请求地址
-Mock.mock(/^\/api\/blog(\?.+)?$/, "get", options => {
-  const {
-    categoryid,
-    limit,
-    page
-  } = queryString.parse(options.url.substring(options.url.indexOf("?") + 1))
-  return Mock.mock({
-    code: 0,
-    msg: "",
-    data: {
-      "total|500-1000": 0,
-      //注意当生成规则不是字面量时，需要使用属性表达式的语法来书写属性名和生成规则
-      [`rows|${limit}`]: [{
+Mock.mock(/^\/api\/blog(\?.+)?$/, "get", (options) => {
+  const { categoryid, limit, page } = queryString.parse(
+    options.url.substring(options.url.indexOf("?") + 1)
+  );
+  const data = {
+    "total|500-1000": 0,
+    //注意当生成规则不是字面量时，需要使用属性表达式的语法来书写属性名和生成规则
+    [`rows|${limit}`]: [
+      {
         id: "@guid",
         title: "@ctitle(4,8)",
         description: "@cparagraph(1,10)",
         category: {
           "id|1-15": 0,
-          name: "分类@id"
+          name: "分类@id",
         },
         "scanNumber|100-3000": 0,
         "commentNumber|100-500": 0,
         //从[]中的值二选一
         "thumb|1": ["@image(150x120,@color,#fff,@natural)"],
-        createDate: "@date(T)"
-      }]
-
-    }
-  })
-})
+        createDate: "@date(T)",
+      },
+    ],
+  }
+  return Mock.mock({
+    code: 0,
+    msg: "",
+    data
+  });
+});
 //获取单个博客
 Mock.mock(/^\/api\/blog\/[^/]+$/, "get", {
   code: 0,
@@ -56,20 +58,22 @@ Mock.mock(/^\/api\/blog\/[^/]+$/, "get", {
     "scanNumber|0-10000": 0,
     "commentNumber|0-100": 0,
     createDate: "@date('T')",
-    toc: [{
+    toc: [
+      {
         name: "概述",
-        anchor: "article-md-title-1"
+        anchor: "article-md-title-1",
       },
       {
         name: "简单请求",
         anchor: "article-md-title-2",
-        children: [{
+        children: [
+          {
             name: "简单请求的判定",
-            anchor: "article-md-title-3"
+            anchor: "article-md-title-3",
           },
           {
             name: "简单请求的交互规范",
-            anchor: "article-md-title-4"
+            anchor: "article-md-title-4",
           },
         ],
       },
@@ -275,9 +279,9 @@ Mock.mock(/^\/api\/blog\/[^/]+$/, "get", {
   })</code></pre>
   <p>这样一来，该跨域的ajax请求就是一个<em>附带身份凭证的请求</em></p><p>当一个请求需要附带cookie时，无论它是简单请求，还是预检请求，都会在请求头中添加<code>cookie</code>字段</p><p>而服务器响应时，需要明确告知客户端：服务器允许这样的凭据</p><p>告知的方式也非常的简单，只需要在响应头中添加：<code>Access-Control-Allow-Credentials: true</code>即可</p><p>对于一个附带身份凭证的请求，若服务器没有明确告知，浏览器仍然视为跨域被拒绝。</p><p>另外要特别注意的是：<strong>对于附带身份凭证的请求，服务器不得设置 <code>Access-Control-Allow-Origin 的值为*</code></strong>。这就是为什么不推荐使用*的原因</p><h1 id="article-md-title-7">一个额外的补充</h1><p>在跨域访问时，JS只能拿到一些最基本的响应头，如：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma，如果要访问其他头，则需要服务器设置本响应头。</p><p><code>Access-Control-Expose-Headers</code>头让服务器把允许浏览器访问的头放入白名单，例如：</p><pre><code>Access-Control-Expose-Headers: authorization, a, b</code></pre><p>这样JS就能够访问指定的响应头了。</p>`,
   },
-})
+});
 //提交评论
-Mock.mock('/api/comment', "post", {
+Mock.mock("/api/comment", "post", {
   code: 0,
   msg: "",
   data: {
@@ -286,42 +290,48 @@ Mock.mock('/api/comment', "post", {
     content: "@cparagraph(1, 10)",
     createDate: Date.now(),
     "avatar|1": [
-      "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar6.jpg",
+      "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar2.jpg",
+      "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar4.jpg",
+      "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar6.jpg",
+      "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar8.jpg",
+    ],
+  },
+});
+/*
+"https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar6.jpg",
       "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar4.jpg",
       "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar8.jpg",
       "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar2.jpg",
-    ],
-  }
-})
+
+*/
 //分页获取评论
-Mock.mock(/^\/api\/comment(\?.+)?$/, "get", options => {
-  const {
-    blogid,
-    limit,
-    page
-  } = queryString.parse(options.url.substring(options.url.indexOf("?") + 1))
+Mock.mock(/^\/api\/comment(\?.+)?$/, "get", (options) => {
+  const { blogid, limit, page } = queryString.parse(
+    options.url.substring(options.url.indexOf("?") + 1)
+  );
   return Mock.mock({
     code: 0,
     msg: "",
     data: {
       total: 52,
-      [`rows|${limit}`]: [{
-        id: "@guid",
-        nickname: "@cname",
-        content: "@cparagraph(1,10)",
-        blog: {
-          id: blogid,
-          title: "@ctitle(10,20)"
+      [`rows|${limit}`]: [
+        {
+          id: "@guid",
+          nickname: "@cname",
+          content: "@cparagraph(1,10)",
+          blog: {
+            id: blogid,
+            title: "@ctitle(10,20)",
+          },
+          createDate: "@date(T)",
+          "avatar|1": [
+            "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar2.jpg",
+            "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar4.jpg",
+            "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar6.jpg",
+            "https://xsj-site.oss-cn-chengdu.aliyuncs.com/img/avatar8.jpg",
+          ],
         },
-        createDate: "@date(T)",
-        "avatar|1": [
-          "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar6.jpg",
-          "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar4.jpg",
-          "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar8.jpg",
-          "https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar2.jpg",
-        ]
-      }]
-    }
-  })
-
-})
+      ],
+    },
+  });
+});

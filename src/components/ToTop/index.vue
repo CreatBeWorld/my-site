@@ -43,8 +43,8 @@ export default {
   color: #fff;
   border-radius: 50%;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 40px;
+  right: 40px;
   cursor: pointer;
   z-index: 99;
 }

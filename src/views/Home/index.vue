@@ -37,17 +37,15 @@
 </template>
 
 <script>
-import { getBanner } from "@/api/banner";
+import { mapState } from "vuex";
 import CarouselItem from "./CarouselItem";
 import Icon from "@/components/Icon";
-import fetchData from "@/mixin/fetchData";
 export default {
   name: "Home",
   components: {
     CarouselItem,
     Icon,
   },
-  mixins: [fetchData([])],
   data() {
     return {
       index: 0, //当前显示的图片的索引
@@ -55,19 +53,20 @@ export default {
       switching: false, //是否正在切换,
     };
   },
+  created() {
+    this.$store.dispatch("banner/getBanner");
+  },
   computed: {
     marginTop() {
       return -this.index * this.containerHeight + "px";
     },
+    ...mapState("banner", ["isLoading", "remoteData"]),
   },
   mounted() {
     this.containerHeight = this.$refs.container.clientHeight;
     window.addEventListener("resize", this.handleResize);
   },
   methods: {
-    async fetchData() {
-      return await getBanner();
-    },
     switchTo(i) {
       this.index = i;
     },
@@ -76,7 +75,6 @@ export default {
       if (this.switching) {
         return; //正在切换则返回
       }
-      console.log(this.remoteData);
       if (e.deltaY >= 5 && this.index < this.remoteData.length - 1) {
         this.switching = true;
         this.switchTo(this.index + 1);

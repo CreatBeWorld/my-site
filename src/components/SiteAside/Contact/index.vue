@@ -1,47 +1,49 @@
 <template>
-  <ul class="contact-container">
+  <ul class="contact-container" v-if="remoteData">
     <li>
-      <a>
+      <a :href="remoteData.github" target="_blank">
         <Icon type="github" />
-        <span>CreateBeWorld</span>
+        <span>{{remoteData.githubName}}</span>
       </a>
     </li>
     <li>
-      <a href="mailto:xsj20@outlook.com">
+      <a :href="`mailto:${remoteData.mail}`">
         <Icon type="mail" />
-        <span>xsj20@outlook.com</span>
+        <span>{{remoteData.mail}}</span>
       </a>
     </li>
     <li>
       <a
-        href="tencent://message/?Menu=yes&uin=466840028&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45"
+        :href="`tencent://message/?Menu=yes&uin=${remoteData.qq}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45`"
       >
         <Icon type="qq" />
-        <span>466840028</span>
+        <span>{{remoteData.qq}}</span>
       </a>
       <div class="pop">
-        <img src="../../../assets/qq.png" alt="" />
+        <img :src="remoteData.qqQrCode" alt="" />
       </div>
     </li>
     <li>
       <a class="weixin">
         <Icon type="weixin" />
-        <span>13870829832</span>
+        <span>{{remoteData.weixin}}</span>
       </a>
       <div class="pop">
-        <img src="../../../assets/weixin.png" alt="" />
+        <img :src="remoteData.weixinQrCode" alt="" />
       </div>
     </li>
   </ul>
 </template>
 
 <script>
+import {mapState} from "vuex";
 import Icon from "@/components/Icon";
 export default {
   name: "Contact",
   components: {
     Icon,
   },
+  computed:mapState("setting",["remoteData"])
 };
 </script>
 

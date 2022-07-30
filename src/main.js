@@ -10,10 +10,16 @@ import loading from "@/directives/loading/loading";
 Vue.directive("loading", loading)
 import lazy from "@/directives/lazy/lazy"
 Vue.directive("lazy", lazy)
+//时间总线
 import eventBus from "./eventBus"
 Vue.prototype.$eventBus = eventBus
+//Vuex
+import store from "./store";
+//请求全局设置数据
+store.dispatch("setting/getSetting")
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')

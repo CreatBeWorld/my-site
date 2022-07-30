@@ -2,11 +2,11 @@
   <div class="blog-comment-container">
     <MessageArea
       :title="'评论列表'"
-      :subTitle="remoteData.total + ''"
+      :subTitle="`(${remoteData.total})`"
       :list="remoteData.rows"
+      :isListLoading="isLoading"
       @submit="handleSubmit"
     />
-    <div class="loading-more" v-loading="isLoading"></div>
   </div>
 </template>
 
@@ -77,7 +77,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-.loading-more {
-  position: relative;
-}
+
 </style>

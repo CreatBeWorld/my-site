@@ -3,9 +3,10 @@
     <DataForm v-on="$listeners" />
     <h2 class="title">
       {{ title }}
-      <span>{{ `(${subTitle})` }}</span>
+      <span>{{subTitle}}</span>
     </h2>
     <DataList :list="list" />
+    <div class="loading" v-loading="isListLoading"></div>
   </div>
 </template>
 
@@ -42,5 +43,8 @@ export default {
 <style scoped lang="less">
 .title {
   padding: 30px 0 10px 0;
+}
+.loading{
+  position:relative;
 }
 </style>
