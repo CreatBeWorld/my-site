@@ -3,6 +3,18 @@ import {asyncLoadingComp} from "@/utils"
 export default [
   {
     path: "/",
+    redirect: {
+      name: "Home"
+    }
+  },
+  {
+    path: "/index.html",
+    redirect: {
+      name: "Home"
+    }
+  },
+  {
+    path: "/home",
     component: asyncLoadingComp(()=>import(/* webpackChunkName: "home" */ "@/views/Home")),//路由懒加载，需要用到该路由时，再去加载该组件(页面分包)
     name: "Home",
     meta: {

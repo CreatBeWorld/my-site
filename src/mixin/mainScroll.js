@@ -1,5 +1,5 @@
 /**
- *对主区域滚动条滚动事件的注册、移除以及处理 
+ *对主区域滚动条滚动事件的注册、移除以及处理
  *对主区域滚动条滚动至定指定高度的注册以及处理
  */
 export default function (refString) {
@@ -24,8 +24,6 @@ export default function (refString) {
       handleScrollTop(height) {
         this.$refs[refString].scrollTop = height;
       },
-    }
-
-  }
-
+    },
+  };
 }

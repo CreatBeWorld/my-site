@@ -1,5 +1,6 @@
 <template>
-  <Layout v-if="remoteData">
+  <Layout v-show="remoteData">
+    <!-- ref所在的标签或父标签不要使用v-if使用v-show，否则可能拿不到dom元素 -->
     <div class="main-container" v-loading="isLoading" ref="container">
       <MainContent :blog="remoteData" v-if="remoteData" />
       <BlogComment v-if="!isLoading" />
