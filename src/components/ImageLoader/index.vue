@@ -63,9 +63,7 @@ export default {
     .self-fill();
     object-fit: cover;
     &.placeholder {
-      filter: blur(
-        20px
-      ); //模糊效果处理不好，可以在其上面加一层透明度为0的覆盖物，即把原图的透明度设置为0
+      filter: blur(20px);
     }
   }
 }

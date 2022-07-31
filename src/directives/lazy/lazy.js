@@ -37,7 +37,7 @@ export default {
     setImage(img)
   },
   //指令与元素解绑时，从images数组中移除绑定的图片
-  unbind(el, binding) {
-    images = images.filter(img => img.src !== binding.value)
+  unbind(el) {
+    images = images.filter(img => img.dom !== el)
   }
 }
