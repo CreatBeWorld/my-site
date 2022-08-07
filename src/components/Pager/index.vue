@@ -1,29 +1,26 @@
 <template>
-  <div class="pager-container" v-if="pageNumber > 1">
-    <a @click="clickHandler(1)" :class="{ disabled: current === 1 }">
+  <div class="pager-container"
+       v-if="pageNumber > 1">
+    <a @click="clickHandler(1)"
+       :class="{ disabled: current === 1 }">
       |&lt;&lt;
     </a>
-    <a @click="clickHandler(current - 1)" :class="{ disabled: current === 1 }">
+    <a @click="clickHandler(current - 1)"
+       :class="{ disabled: current === 1 }">
       &lt;&lt;
     </a>
-    <a
-      @click="clickHandler(n)"
-      v-for="(n, i) in visibleRange"
-      :key="i"
-      :class="{ active: n === current }"
-    >
+    <a @click="clickHandler(n)"
+       v-for="(n, i) in visibleRange"
+       :key="i"
+       :class="{ active: n === current }">
       {{ n }}
     </a>
-    <a
-      @click="clickHandler(current + 1)"
-      :class="{ disabled: current === pageNumber }"
-    >
+    <a @click="clickHandler(current + 1)"
+       :class="{ disabled: current === pageNumber }">
       &gt;&gt;
     </a>
-    <a
-      @click="clickHandler(pageNumber)"
-      :class="{ disabled: current === pageNumber }"
-    >
+    <a @click="clickHandler(pageNumber)"
+       :class="{ disabled: current === pageNumber }">
       &gt;&gt;|
     </a>
   </div>

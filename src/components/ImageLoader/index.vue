@@ -1,13 +1,14 @@
 <template>
   <div class="image-loader-container">
-    <img :src="placeholder" alt="" v-if="show" class="placeholder" />
+    <img :src="placeholder"
+         alt=""
+         v-if="show"
+         class="placeholder" />
     <!-- 设置为opacity<1的元素且不是定位元素为什么会压住设置为定位且没有设置z-indx值的元素?设置为opacity<1的元素和设置为定位的元素具有相同的层级 -->
-    <img
-      :src="src"
-      alt=""
-      @load="handleImgLoad"
-      :style="{ transition: `${duration}ms `, opacity: originOpacity }"
-    />
+    <img :src="src"
+         alt=""
+         @load="handleImgLoad"
+         :style="{ transition: `${duration}ms `, opacity: originOpacity }" />
   </div>
 </template>
 

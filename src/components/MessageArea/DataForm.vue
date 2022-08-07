@@ -1,38 +1,32 @@
 <template>
-  <form
-    class="data-form-container"
-    id="data-form-container"
-    ref="container"
-    @submit.prevent="handleSubmit"
-  >
+  <form class="data-form-container"
+        id="data-form-container"
+        ref="container"
+        @submit.prevent="handleSubmit">
     <div class="form-item">
       <div class="content">
-        <input
-          type="text"
-          placeholder="用户昵称"
-          maxlength="10"
-          class="text"
-          v-model="formData.nickname"
-        />
+        <input type="text"
+               placeholder="用户昵称"
+               maxlength="10"
+               class="text"
+               v-model="formData.nickname" />
         <span>{{ formData.nickname.length }}/10</span>
       </div>
       <div class="error">{{ error.nickname }}</div>
     </div>
     <div class="form-item">
       <div class="content textarea">
-        <textarea
-          placeholder="请输入内容"
-          v-model="formData.content"
-          maxlength="300"
-          class="text text-area"
-        ></textarea>
+        <textarea placeholder="请输入内容"
+                  v-model="formData.content"
+                  maxlength="300"
+                  class="text text-area"></textarea>
         <span>{{ formData.content.length }}/300</span>
       </div>
       <div class="error">{{ error.content }}</div>
     </div>
     <div class="form-item">
       <button :disabled="isSubmitting">
-        {{ isSubmitting ? "提交中..." : "提交" }}
+        {{ isSubmitting ? '提交中...' : '提交' }}
       </button>
     </div>
   </form>
