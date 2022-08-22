@@ -4,7 +4,7 @@ import "@/styles/global.less"
 import router from './router'
 import showMessage from './utils/showMessage'
 Vue.prototype.$showMessage = showMessage
-import "./mock"
+// import "./mock"
 //全局注册指令
 import loading from "@/directives/loading/loading";
 Vue.directive("loading", loading)

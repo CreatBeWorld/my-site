@@ -5,11 +5,14 @@
       <span>日期：{{ formatDate(blog.createDate) }}</span>
       <span>浏览：{{ blog.scanNumber }}</span>
       <a href="#data-form-container">评论：{{ blog.commentNumber }}</a>
-      <RouterLink
+
+     <RouterLink
+        v-if="blog.category"
         :to="{ name: 'CategoryBlog', params: { categoryId: blog.category.id } }"
       >
         {{ blog.category.name }}
       </RouterLink>
+      <span v-else>未分类</span>
     </div>
     <div class="markdown-body" v-html="blog.htmlContent"></div>
   </div>

@@ -30,14 +30,15 @@
             <span>浏览：{{ item.scanNumber }}</span>
             <span>评论: {{ item.commentNumber }}</span>
             <RouterLink
+              v-if="item.category"
               :to="{
                 name: 'CategoryBlog',
                 params: {
-                  categoryId: item.category.id,
+                  categoryId: item.category?item.category.id:''
                 },
               }"
             >
-              {{ item.category.name }}
+              {{ item.category?item.category.name:'' }}
             </RouterLink>
           </div>
           <p class="desc-last">{{ item.description }}</p>
@@ -76,7 +77,7 @@ export default {
       return {
         page: +this.$route.query.page || 1,
         limit: +this.$route.query.limit || 10,
-        categoryId: +this.$route.params.categoryId || -1,
+        categoryId: this.$route.params.categoryId || -1,
       };
     },
   },

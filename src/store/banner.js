@@ -1,4 +1,4 @@
-import { getBanner} from "../api/banner";
+import { getBanner } from "../api/banner";
 export default {
   namespaced: true,
   state: {
@@ -19,7 +19,7 @@ export default {
         return
       }
       ctx.commit("setIsLoading", true)
-      const res = await getBanner()
+      let res = await getBanner()
       ctx.commit("setRemoteData", res)
       ctx.commit("setIsLoading",false)
     }

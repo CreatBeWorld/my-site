@@ -6,8 +6,8 @@ module.exports = {
     https:false,
     proxy: {
       '/api': {
-        target: 'https://baike.baidu.com',
-        changeOrigin: true
+        target: 'http://127.0.0.1:7001',
+        // changeOrigin: true
       }
     }
   },

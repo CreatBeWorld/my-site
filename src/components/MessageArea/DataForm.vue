@@ -56,10 +56,10 @@ export default {
         return;
       }
       this.isSubmitting = true;
-      this.$emit("submit", this.formData, (successMsg) => {
+      this.$emit("submit", this.formData, (successMsg,type='success') => {
         this.$showMessage({
           message: successMsg,
-          type: "success",
+          type,
           duration: 1000,
           container: this.$refs.container,
           callback: () => {

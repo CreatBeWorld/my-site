@@ -18,7 +18,7 @@
         >
           <h2>{{ item.name }}</h2>
         </a>
-        <a :href="item.github" v-if="item.github" class="github-link">github</a>
+        <a :href="item.github" v-if="item.github" class="github-link" target="_blank">github</a>
         <p v-for="(desc, i) in item.description" :key="i" class="desc">
           {{ desc }}
         </p>
