@@ -1,4 +1,4 @@
-import { getProject} from "@/api/project";
+import { getProject } from "@/api/project";
 export default {
   namespaced: true,
   state: {
@@ -19,7 +19,7 @@ export default {
         return
       }
       ctx.commit("setIsLoading", true)
-      const res = await getProject()
+      let res = await getProject()
       ctx.commit("setRemoteData", res)
       ctx.commit("setIsLoading", false)
     }

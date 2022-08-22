@@ -7,12 +7,12 @@ export async function getBlogTypes() {
 export async function getBlogs(params) {
   const page = params.page || 1;
   const limit = params.limit || 10
-  const categoryid = params.categoryid || -1
+  const categoryId = params.categoryId || -1
   return await request.get('/api/blog', {
     params: {
       page,
       limit,
-      categoryid,
+      categoryId,
     }
   })
 }

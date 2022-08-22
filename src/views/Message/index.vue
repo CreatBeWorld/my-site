@@ -13,11 +13,10 @@
 <script>
 import * as messageApi from "@/api/message";
 import MessageArea from "@/components/MessageArea";
-import fetchData from "@/mixin/fetchData";
 import mainScroll from "@/mixin/mainScroll";
 export default {
   name: "Message",
-  mixins: [fetchData({ total: 0, rows: [] }), mainScroll("container")],
+  mixins: [mainScroll("container")],
   components: {
     MessageArea,
   },
@@ -25,9 +24,15 @@ export default {
     return {
       page: 1,
       limit: 10,
+      remoteData: {
+        total: 0,
+        rows: [],
+      },
+      isLoading: false,
     };
   },
   created() {
+    this.fetchData();
     this.$eventBus.$on("mainScroll", this.judgeScroll);
   },
   destroyed() {
@@ -35,13 +40,21 @@ export default {
   },
   methods: {
     async fetchData() {
-      return await messageApi.getMessage(this.page, this.limit);
+      this.isLoading = true;
+      const res = await messageApi.getMessage(this.page, this.limit);
+      this.remoteData.total = res.total;
+      this.remoteData.rows = res.rows
+      this.isLoading = false;
     },
     async handleSubmit(formData, callback) {
-      const res = await messageApi.commitMessage(formData);
-      this.remoteData.rows.unshift(res);
-      this.remoteData.total++;
-      callback("评论提交成功");
+      let res = await messageApi.commitMessage(formData);
+      if (res) {
+        this.remoteData.rows.unshift(res);
+        this.remoteData.total++;
+        callback("评论提交成功");
+      } else {
+        callback("操作过于频繁，请稍后再提交评论", "error");
+      }
     },
     //滚动条触底加载更多数据
     async fetchMore() {
@@ -52,9 +65,9 @@ export default {
       if (this.remoteData.rows.length >= this.remoteData.total) {
         return;
       }
-      this.isLoading = true;
       this.page++;
-      const res = await this.fetchData();
+      this.isLoading = true;
+      let res = await messageApi.getMessage(this.page, this.limit);
       this.remoteData.rows.push(...res.rows);
       this.isLoading = false;
     },

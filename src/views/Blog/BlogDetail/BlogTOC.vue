@@ -8,7 +8,6 @@
 <script>
 import RightList from "../RightList";
 import { debounce } from "@/utils";
-import ToTop from "@/components/ToTop";
 export default {
   name: "BlogTOC",
   props: {

@@ -13,10 +13,8 @@
 <script>
 import MessageArea from "@/components/MessageArea";
 import { getComments, commitComment } from "@/api/blog";
-import fetchData from "@/mixin/fetchData";
 export default {
   name: "BlogComment",
-  mixins: [fetchData({ total: 0, rows: [] })],
   components: {
     MessageArea,
   },
@@ -24,10 +22,16 @@ export default {
     return {
       page: 1,
       limit: 10,
+      remoteData:{
+        total:0,
+        rows:[]
+      },
+      isLoading: false
     };
   },
   created() {
     this.$eventBus.$on("mainScroll", this.handleScroll);
+    this.fetchData();
   },
   destroyed() {
     //取消mainScroll事件监听
@@ -35,16 +39,25 @@ export default {
   },
   methods: {
     async fetchData() {
-      return await getComments(this.$route.params.id, this.page, this.limit);
+      this.isLoading = true;
+      const res =  await getComments(this.$route.params.id, this.page, this.limit);
+      this.remoteData.total = res.total
+      this.remoteData.rows = res.rows
+      this.isLoading = false;
     },
     async handleSubmit(formData, callback) {
       const res = await commitComment({
         blogId: this.$route.params.id,
         ...formData,
       });
-      this.remoteData.rows.unshift(res);
-      this.remoteData.total++;
-      callback("评论提交成功");
+      if(res){
+        this.remoteData.rows.unshift(res);
+        this.remoteData.total++;
+        callback("评论提交成功");
+      }else{
+        callback("操作过于频繁，请稍后再提交评论",'error');
+      }
+      
     },
     //滚动条触底加载更多数据
     async fetchMore() {
@@ -57,7 +70,7 @@ export default {
       }
       this.isLoading = true;
       this.page++;
-      const res = await this.fetchData();
+      let res = await getComments(this.$route.params.id, this.page, this.limit);
       this.remoteData.rows.push(...res.rows);
       this.isLoading = false;
     },
